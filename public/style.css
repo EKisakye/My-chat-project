@@ -1,0 +1,90 @@
+body{
+    background-color: #ebe9e9;
+    font-family:'open sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+*{
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+h1{
+    font-size: 2.5rem;
+    color: #000;
+    margin-top: 20px;
+}
+.main{
+    border: 8px solid #dddddd;
+    border-radius: 24px;
+    overflow: hidden;
+}
+.name{
+    font-size: 32px;
+    font-weight: 600;
+    display: flex;
+    padding: 30px;
+}
+.message-container{
+   display: flex;
+    flex-direction: column;
+    height: 600px;
+    width: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+}
+.name-Input{
+    font-size: 20px;
+    font-weight: 700;
+    outline: none;
+    margin: 0px 12px;
+    color: #7e7e7e;
+    border: none;
+    }
+    .message-left,.message-right{
+        list-style: none;
+        padding: 8px 12px;
+        margin: 12px;
+        max-width: 250px;
+        word-wrap: break-word;
+    }
+    .message-left{
+        border-radius: 20px 20px 20px 0px;
+        align-self: flex-start;
+        box-shadow: -2px 2px 4px blue;
+        background-color: #e0e0e0;
+
+    }
+     .message-right{
+        border-radius: 20px 20px 0px 20px;
+        align-self: flex-end;
+        box-shadow: 2px 2px 4px green;
+        background-color:black;
+        color: white;
+
+    }
+    .message-form{
+        display: flex;
+        justify-content: space-between;
+        width: 400px;
+        padding: 12px;
+    }
+    .message-input{
+        flex-grow: 1;
+        height: 40px;
+        width: 100%;
+        border: none;
+        outline: none;
+    }
+    .send-button{
+        height: 40px;
+        width: 80px;
+        border: none;
+        outline: none;
+        background-color: orangered;
+        color: white;
+        cursor: pointer;
+    }

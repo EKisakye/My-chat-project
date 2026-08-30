@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="Stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <title>Talk to us Online </title>
+</head>
+<body>
+    <h1>Chat with us on  Glovo! </h1>
+    <div class="main">
+        <div class="name">
+            <span><i class="fa fa-user"></i></span>
+            <input type="text" id="name-Input" class="name-Input" value="Essie">
+        </div>
+        <ul class="message-container" id="message-container">
+            <li class="message-left">
+                <p class="message-text">Hii Essie,Howre you doing</p>
+                <span>Delivered. 7:45 AM</span>
+            </li>
+            <li class="message-right">
+                <p class="message-text">Hii Tranella, Am fine Howre you doing </p>
+                <span>Delivered. 7:46 AM</span>
+            </li>
+
+        </ul>
+        <form class="message-form" id="message-form">
+            <input type="text" class="message-input" id="message-input" name="message" placeholder="Type a message...">
+            <div class="V-divider"></div>
+            <button type="submit" class="send-button"><i class="fa fa-paper-plane"></i></button>  
+        </form>
+    </div>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
