@@ -7,40 +7,328 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <title>Team chat</title>
 </head>
 <body>
-    <div class="app">
-        <form class="join" id="join-form">
-            <span class="join-avatar"><i class="fa fa-user"></i></span>
-            <h1 class="join-title">Join the chat</h1>
-            <label class="join-label" for="name-input">Your name</label>
-            <input type="text" id="name-input" class="join-input" maxlength="30" autocomplete="off" placeholder="e.g. Essie">
-            <p class="error" id="join-error" role="alert"></p>
-            <button type="submit" class="join-button">Start chatting</button>
-        </form>
 
-        <section class="chat hidden" id="chat">
-            <header class="chat-header">
-                <h1 class="chat-title">Team chat</h1>
-                <p class="chat-status" id="chat-status">Connecting…</p>
+<!-- ============ LANDING ============ -->
+<main class="landing" id="landing">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+
+    <div class="landing-inner">
+        <section class="hero">
+            <div class="brand">
+                <span class="brand-mark"><i class="fa fa-comments"></i></span>
+                <span class="brand-name">Team chat</span>
+            </div>
+
+            <h1 class="hero-title">
+                Better conversations,<br><em>bigger dreams</em>
+            </h1>
+
+            <p class="hero-lede">
+                Direct messages, group rooms and a shared history — pick a name
+                and start talking.
+            </p>
+
+            <ul class="hero-features">
+                <li>
+                    <span class="feat-icon"><i class="fa fa-user"></i></span>
+                    <div>
+                        <strong>One-to-one and groups</strong>
+                        <span>Private chats sit beside your group rooms.</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="feat-icon"><i class="fa fa-history"></i></span>
+                    <div>
+                        <strong>Nothing is lost</strong>
+                        <span>Every conversation keeps its own history.</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="feat-icon"><i class="fa fa-shield"></i></span>
+                    <div>
+                        <strong>Safe by default</strong>
+                        <span>Messages render as text, never as markup.</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="join-card">
+            <form class="join" id="join-form">
+                <h2 class="join-title">Join the chat</h2>
+                <p class="join-sub">Choose the name everyone will see. You can add a photo once you are in.</p>
+
+                <label class="join-label" for="name-input">Display name</label>
+                <div class="input-wrap">
+                    <i class="fa fa-user-o"></i>
+                    <input type="text" id="name-input" class="join-input" maxlength="30"
+                           autocomplete="off" placeholder="e.g. Allan">
+                </div>
+
+                <p class="error" id="join-error" role="alert"></p>
+
+                <button type="submit" class="join-button">
+                    Start chatting <i class="fa fa-arrow-right"></i>
+                </button>
+            </form>
+        </section>
+    </div>
+</main>
+
+<!-- ============ APP SHELL ============ -->
+<div class="shell hidden" id="chat">
+
+    <!-- ---- nav rail ---- -->
+    <nav class="rail" aria-label="Sections">
+        <span class="rail-logo"><i class="fa fa-comments"></i></span>
+
+        <div class="rail-items">
+            <button class="rail-item active" type="button" id="nav-chats">
+                <i class="fa fa-home"></i><span>Chats</span>
+            </button>
+            <button class="rail-item" type="button" id="nav-groups">
+                <i class="fa fa-users"></i><span>Groups</span>
+            </button>
+            <button class="rail-item" type="button" id="nav-contacts">
+                <i class="fa fa-user-o"></i><span>Contacts</span>
+            </button>
+            <button class="rail-item" type="button" id="nav-settings">
+                <i class="fa fa-cog"></i><span>Settings</span>
+            </button>
+        </div>
+
+        <div class="rail-foot">
+            <svg viewBox="0 0 48 22" class="rail-peaks" aria-hidden="true">
+                <path d="M2 20 L14 6 L21 14 L30 3 L46 20 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            <p>Better<br>Conversations<br>Bigger Dreams</p>
+            <span class="rail-rule"></span>
+        </div>
+    </nav>
+
+    <!-- ---- sidebar ---- -->
+    <aside class="sidebar" id="sidebar">
+
+        <!-- pane: chat list -->
+        <div class="pane" id="pane-list">
+            <button class="me-row" type="button" id="my-avatar-button" aria-label="Your profile">
+                <span class="avatar avatar-lg online" id="sidebar-avatar"></span>
+                <span class="me-body">
+                    <span class="me-top">
+                        <span class="me-name" id="me-name">You</span>
+                        <i class="fa fa-circle dot-online"></i>
+                    </span>
+                    <span class="me-about" id="me-about">Set a status</span>
+                </span>
+                <i class="fa fa-angle-down me-chevron"></i>
+            </button>
+
+            <div class="pane-search">
+                <div class="search-wrap">
+                    <i class="fa fa-search"></i>
+                    <input type="search" id="people-search" placeholder="Search or start a new chat" autocomplete="off">
+                    <button class="filter-button" type="button" id="unread-filter"
+                            title="Show unread only" aria-pressed="false" aria-label="Show unread only">
+                        <i class="fa fa-sliders"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tabs" role="tablist">
+                <button class="tab active" type="button" id="tab-direct" role="tab" aria-selected="true">
+                    Chats <span class="tab-count" id="count-direct">0</span>
+                </button>
+                <button class="tab" type="button" id="tab-groups" role="tab" aria-selected="false">
+                    Groups <span class="tab-count" id="count-groups">0</span>
+                </button>
+            </div>
+
+            <ul class="conv-list" id="direct-list"></ul>
+
+            <div class="conv-pane hidden" id="groups-pane">
+                <ul class="conv-list" id="group-list"></ul>
+            </div>
+
+            <button class="fab" type="button" id="fab-new-chat" title="New chat" aria-label="New chat">
+                <i class="fa fa-comment"></i>
+                <i class="fa fa-plus fab-plus"></i>
+            </button>
+        </div>
+
+        <!-- pane: new chat -->
+        <div class="pane pane-over hidden" id="pane-new">
+            <header class="pane-head">
+                <button class="icon-button" type="button" id="new-back" aria-label="Back">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+                <h2 class="pane-title">New chat</h2>
             </header>
 
-            <ul class="message-container" id="message-container"></ul>
+            <div class="pane-search">
+                <div class="search-wrap">
+                    <i class="fa fa-search"></i>
+                    <input type="search" id="contact-search" placeholder="Search name" autocomplete="off">
+                </div>
+            </div>
 
+            <button class="row-action" type="button" id="new-group-row">
+                <span class="row-icon"><i class="fa fa-users"></i></span>
+                <span>New group</span>
+            </button>
+
+            <span class="section-label">Contacts on Team chat</span>
+            <ul class="conv-list" id="contact-list"></ul>
+        </div>
+
+        <!-- pane: profile -->
+        <div class="pane pane-over hidden" id="pane-profile">
+            <header class="pane-head">
+                <button class="icon-button" type="button" id="profile-back" aria-label="Back">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+                <h2 class="pane-title">Profile</h2>
+            </header>
+
+            <div class="profile-hero">
+                <button class="profile-photo" type="button" id="profile-photo" aria-label="Change profile photo">
+                    <span class="avatar profile-avatar" id="profile-avatar"></span>
+                    <span class="photo-overlay">
+                        <i class="fa fa-camera"></i>
+                        <span>Change<br>photo</span>
+                    </span>
+                </button>
+                <p class="photo-hint" id="photo-hint">Click the photo to upload one</p>
+            </div>
+
+            <div class="field">
+                <span class="field-label">Your name</span>
+                <span class="field-value" id="profile-name"></span>
+            </div>
+            <p class="field-note">This is the name everyone in the room sees.</p>
+
+            <div class="field">
+                <span class="field-label">Status</span>
+                <div class="about-edit">
+                    <input type="text" id="about-input" maxlength="60" placeholder="Keep building 🚀" autocomplete="off">
+                    <button class="save-button" type="button" id="about-save">Save</button>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button class="ghost-button hidden" type="button" id="profile-remove-photo">
+                    <i class="fa fa-trash"></i> Remove photo
+                </button>
+                <button class="ghost-button" type="button" id="leave-btn">
+                    <i class="fa fa-sign-out"></i> Log out
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ---- conversation ---- -->
+    <section class="chat-main">
+        <span class="wave wave-1"></span>
+        <span class="wave wave-2"></span>
+
+        <header class="chat-header">
+            <button class="back-button" type="button" id="back-button" aria-label="Back to conversations">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <button class="chat-identity" type="button" id="chat-identity">
+                <span class="room-avatar" id="room-avatar"><i class="fa fa-users"></i></span>
+                <span class="chat-heading">
+                    <span class="chat-title" id="chat-title">General</span>
+                    <span class="chat-status" id="chat-status">
+                        <i class="fa fa-circle dot-online"></i> <span id="chat-status-text">Connecting…</span>
+                    </span>
+                </span>
+            </button>
+
+            <div class="header-actions">
+                <button class="round-button" type="button" id="toggle-search" title="Search messages" aria-label="Search messages">
+                    <i class="fa fa-search"></i>
+                </button>
+                <span class="live-badge" id="live-badge"><i class="fa fa-circle"></i> <span id="live-text">Live</span></span>
+                <button class="round-button" type="button" id="toggle-info" title="Conversation info" aria-label="Conversation info">
+                    <i class="fa fa-info"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="msg-search hidden" id="msg-search">
+            <div class="search-wrap">
+                <i class="fa fa-search"></i>
+                <input type="search" id="msg-search-input" placeholder="Search in this conversation" autocomplete="off">
+            </div>
+            <span class="msg-search-count" id="msg-search-count"></span>
+            <button class="icon-button" type="button" id="msg-search-close" aria-label="Close search">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+
+        <ul class="message-container" id="message-container"></ul>
+
+        <div class="composer">
             <form class="message-form" id="message-form">
-                <input type="text" class="message-input" id="message-input" name="message"
-                       maxlength="500" autocomplete="off" placeholder="Type a message...">
+                <button class="compose-round" type="button" id="emoji-button" title="Insert emoji" aria-label="Insert emoji">
+                    <i class="fa fa-plus"></i>
+                </button>
+
+                <div class="input-shell">
+                    <input type="text" class="message-input" id="message-input" name="message"
+                           maxlength="500" autocomplete="off" placeholder="Type a message...">
+                    <button class="inline-icon" type="button" id="emoji-button-2" title="Insert emoji" aria-label="Insert emoji">
+                        <i class="fa fa-smile-o"></i>
+                    </button>
+                </div>
+
                 <button type="submit" class="send-button" aria-label="Send message">
                     <i class="fa fa-paper-plane"></i>
                 </button>
             </form>
-            <p class="error" id="message-error" role="alert"></p>
-        </section>
-    </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="main.js"></script>
+            <div class="emoji-panel hidden" id="emoji-panel"></div>
+            <p class="error" id="message-error" role="alert"></p>
+        </div>
+    </section>
+
+    <!-- ---- info panel ---- -->
+    <aside class="info-panel" id="info-panel">
+        <header class="pane-head">
+            <button class="icon-button" type="button" id="info-close" aria-label="Close">
+                <i class="fa fa-times"></i>
+            </button>
+            <h2 class="pane-title">Conversation info</h2>
+        </header>
+
+        <div class="info-hero">
+            <span class="avatar info-avatar" id="info-avatar"></span>
+            <h3 class="info-name" id="info-name">General</h3>
+            <span class="info-sub" id="info-sub">Group</span>
+        </div>
+
+        <div class="info-block">
+            <span class="section-label">Messages shown</span>
+            <div class="info-stats">
+                <div><dt>In this conversation</dt><dd id="stat-messages">0</dd></div>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <span class="section-label">Online now</span>
+            <ul class="member-list" id="member-list"></ul>
+        </div>
+    </aside>
+</div>
+
+<input type="file" id="avatar-input" accept="image/png,image/jpeg,image/webp" hidden>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="main.js"></script>
 </body>
 </html>

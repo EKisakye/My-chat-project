@@ -39,8 +39,25 @@ two sides will see each other.
   messages that are empty after trimming are dropped.
 - **Date separators.** A "Today" / "Yesterday" / date pill appears whenever the
   day changes.
-- **History.** Messages are stored in SQLite, and the last 50 are replayed to
-  each person as they join, so a new arrival is not dropped into an empty room.
+- **Direct messages and groups.** The sidebar splits into a Direct tab and a
+  Groups tab. A DM is addressed by the pair of names involved, and groups are
+  public rooms anyone can create and join. Unread counts appear on any
+  conversation you are not currently looking at.
+- **Profile photos and status.** Both are set from the Profile pane inside the
+  app, reached by clicking your avatar. A photo is centre-cropped and re-encoded
+  to 128px in the browser before upload, so a large phone photo becomes a small
+  data URL. The server accepts only PNG, JPEG and WebP data URLs — SVG is
+  refused because it can carry script — and stores them in SQLite, so both
+  survive a restart.
+- **Starting a chat.** The new chat button opens a contact picker listing
+  everyone registered, separate from the chat list, which holds only
+  conversations that have messages.
+- **Searching.** The sidebar search filters conversations and the sliders button
+  narrows to unread only. The header search filters the open conversation,
+  dimming non-matches and highlighting hits.
+- **History.** Messages are stored in SQLite per conversation, and the last 50
+  of whichever conversation you open are replayed, so you are never dropped
+  into an empty room.
 - **Rate limiting.** Each socket gets a token bucket of 5 messages, refilling
   at one per second. Over that, the message is rejected with a `rate-limited`
   acknowledgement and the sender sees an inline warning.
@@ -48,9 +65,16 @@ two sides will see each other.
 ## Layout
 
 ```
-app.js              Express + Socket.IO server
-db.js               SQLite storage: save a message, read recent ones
-public/index.html   Join screen and chat screen
-public/main.js      Client: rendering, join flow, ticks, typing
+app.js              Express + Socket.IO server: presence, routing, rate limiting
+db.js               SQLite storage: messages, users, groups
+public/index.html   Landing page and the app shell
+public/main.js      Client: conversations, profile, search, rendering
 public/style.css    Styles
 ```
+
+## Accessibility note
+
+Text on a coloured surface is checked against WCAG AA (4.5:1) rather than
+eyeballed. White on the primary blue `#2563EB` measures 5.17:1 and passes. An
+earlier pale blue palette was changed for this reason: white on `#6CABDD` is
+only 2.47:1, so labels on blue were switched to navy instead.
